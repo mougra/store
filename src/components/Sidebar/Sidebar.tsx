@@ -2,16 +2,34 @@ import React from 'react'
 
 import styles from '../../styles/Sidebar.module.css'
 import { NavLink } from 'react-router-dom'
+import { useFetchСategoriesQuery } from '../../store/categories/categories.api'
+import { ICategories } from '../../models/models'
 
 export const Sidebar = () => {
+  const {
+    isLoading: isLoadingCategories,
+    error: isErrorCategories,
+    data: categories,
+  } = useFetchСategoriesQuery('categories')
+
   return (
     <section className={styles.sidebar}>
       <div className={styles.title}>CATEGORIES</div>
       <nav>
         <ul className={styles.menu}>
-          <li>
-            <NavLink to={`/categories/${1}`}>Link</NavLink>
-          </li>
+          {categories &&
+            categories.map((category) => (
+              <li key={category.id}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${styles.link} ${isActive ? styles.active : ''}`
+                  }
+                  to={`/categories/${category.id}`}
+                >
+                  {category.name}
+                </NavLink>
+              </li>
+            ))}
         </ul>
       </nav>
 
