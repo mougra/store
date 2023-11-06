@@ -11,11 +11,18 @@ export const productsApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_BASE_URL,
   }),
+  tagTypes: ['Products'],
   endpoints: (build) => ({
     fetchProducts: build.query<IProducts[], string>({
       query: () => ({
         url: 'products',
       }),
+    }),
+    getProduct: build.query<IProducts, any>({
+      query: ({ id }: any) => ({
+        url: `products/${id}`,
+      }),
+      providesTags: ['Products'],
     }),
     // sortPosts: build.query<IPost[], Payload>({
     //   query: ({ page = 1, limit = 9 }) => ({
@@ -50,6 +57,7 @@ export const productsApi = createApi({
 
 export const {
   useFetchProductsQuery,
+  useGetProductQuery,
   // useLazySortPostsQuery,
   // useLazyGetPostsQuery,
   // useGetPostsQuery,

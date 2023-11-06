@@ -1,32 +1,28 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
+import styles from '../../styles/Product.module.css'
+import { useActions } from '../../hooks/actions'
+import { IProducts } from '../../models/models'
 
-import { ROUTES } from "../../utils/routes";
+const SIZES = [4, 4.5, 5]
 
-import styles from "../../styles/Product.module.css";
+const Product = (item: IProducts) => {
+  const { title, price, images, description } = item
 
-import { addItemToCart } from "../../features/user/userSlice";
-
-const SIZES = [4, 4.5, 5];
-
-const Product = (item) => {
-  const { title, price, images, description } = item;
-
-  const dispatch = useDispatch();
-
-  const [currentImage, setCurrentImage] = useState();
-  const [currentSize, setCurrentSize] = useState();
+  const [currentImage, setCurrentImage] = useState<any>()
+  const [currentSize, setCurrentSize] = useState<number>()
 
   useEffect(() => {
-    if (!images.length) return;
+    if (!images.length) return
 
-    setCurrentImage(images[0]);
-  }, [images]);
+    setCurrentImage(images[0])
+  }, [images])
+
+  const { addItemToCart } = useActions()
 
   const addToCart = () => {
-    dispatch(addItemToCart(item));
-  };
+    addItemToCart(item)
+  }
 
   return (
     <section className={styles.product}>
@@ -35,8 +31,8 @@ const Product = (item) => {
           className={styles.current}
           style={{ backgroundImage: `url(${currentImage})` }}
         />
-        <div className={styles["images-list"]}>
-          {images.map((image, i) => (
+        <div className={styles['images-list']}>
+          {images.map((image: any, i: any) => (
             <div
               key={i}
               className={styles.image}
@@ -60,7 +56,7 @@ const Product = (item) => {
               <div
                 onClick={() => setCurrentSize(size)}
                 className={`${styles.size} ${
-                  currentSize === size ? styles.active : ""
+                  currentSize === size ? styles.active : ''
                 }`}
                 key={size}
               >
@@ -86,11 +82,11 @@ const Product = (item) => {
         <div className={styles.bottom}>
           <div className={styles.purchase}>19 people purchased</div>
 
-          <Link to={ROUTES.HOME}>Return to store</Link>
+          <Link to='/'>Return to store</Link>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export default Product;
+export default Product

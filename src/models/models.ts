@@ -21,3 +21,8 @@ export interface Category {
   name: string
   image: string
 }
+export interface IUser {
+  // id: number
+  name: any
+  // image: string
+}
