@@ -78,7 +78,7 @@ const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
         <div className={styles.group}>
           <input
             type='avatar'
-            placeholder='Your avatar'
+            placeholder='Your avatar (url)'
             name='avatar'
             value={values.avatar}
             autoComplete='off'

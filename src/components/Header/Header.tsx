@@ -8,6 +8,7 @@ import LOGO from '../../images/logo.svg'
 import AVATAR from '../../images/avatar.jpg'
 import { useAppSelector } from '../../hooks/redux'
 import { useActions } from '../../hooks/actions'
+import { useSearchProductQuery } from '../../store/products/products.api'
 
 export const Header = () => {
   const navigate = useNavigate()
@@ -15,6 +16,8 @@ export const Header = () => {
   const { currentUser, cart } = useAppSelector((state) => state.user)
 
   const [user, setUser] = useState<any>({ name: 'Guest', avatar: AVATAR })
+  const [searchValue, setSearchValue] = useState('')
+  const { data: searchData, isLoading } = useSearchProductQuery(searchValue)
 
   useEffect(() => {
     if (!currentUser) return
@@ -26,6 +29,12 @@ export const Header = () => {
   const handleClick = () => {
     if (!currentUser) toggleForm(true)
     else navigate('/profile')
+  }
+
+  const handleSearch = ({ target: { value } }: any) => {
+    console.log('value', value)
+
+    setSearchValue(value)
   }
 
   return (
@@ -55,12 +64,35 @@ export const Header = () => {
               name='search'
               placeholder='Search for anything...'
               autoComplete='off'
-              onChange={() => {}}
-              value=''
+              onChange={handleSearch}
+              value={searchValue}
             />
           </div>
 
-          {false && <div className={styles.box}></div>}
+          {searchValue && (
+            <div className={styles.box}>
+              {isLoading
+                ? 'Loading'
+                : !searchData
+                ? 'No results'
+                : searchData.map(({ title, images, id }) => {
+                    return (
+                      <Link
+                        key={id}
+                        onClick={() => setSearchValue('')}
+                        className={styles.item}
+                        to={`/products/${id}`}
+                      >
+                        <div
+                          className={styles.image}
+                          style={{ backgroundImage: `url(${images[0]})` }}
+                        />
+                        <div className={styles.title}>{title}</div>
+                      </Link>
+                    )
+                  })}
+            </div>
+          )}
         </form>
         <div className={styles.account}>
           <Link to={ROUTES.HOME} className={styles.favorites}>

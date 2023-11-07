@@ -24,6 +24,14 @@ export const productsApi = createApi({
       }),
       providesTags: ['Products'],
     }),
+    searchProduct: build.query<IProducts[], string>({
+      query: (title) => ({
+        url: 'products/',
+        params: {
+          title: title,
+        },
+      }),
+    }),
     // sortPosts: build.query<IPost[], Payload>({
     //   query: ({ page = 1, limit = 9 }) => ({
     //     url: 'posts',
@@ -58,6 +66,7 @@ export const productsApi = createApi({
 export const {
   useFetchProductsQuery,
   useGetProductQuery,
+  useSearchProductQuery,
   // useLazySortPostsQuery,
   // useLazyGetPostsQuery,
   // useGetPostsQuery,
