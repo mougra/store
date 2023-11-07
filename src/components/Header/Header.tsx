@@ -1,27 +1,47 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from '../../styles/Header.module.css'
 import { ROUTES } from '../../utils/routes'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 import LOGO from '../../images/logo.svg'
 import AVATAR from '../../images/avatar.jpg'
+import { useAppSelector } from '../../hooks/redux'
+import { useActions } from '../../hooks/actions'
 
 export const Header = () => {
+  const navigate = useNavigate()
+
+  const { currentUser, cart } = useAppSelector((state) => state.user)
+
+  const [user, setUser] = useState<any>({ name: 'Guest', avatar: AVATAR })
+
+  useEffect(() => {
+    if (!currentUser) return
+    setUser(currentUser)
+  }, [currentUser])
+
+  const { toggleForm } = useActions()
+
+  const handleClick = () => {
+    if (!currentUser) toggleForm(true)
+    else navigate('/profile')
+  }
+
   return (
     <div className={styles.header}>
       <div className={styles.logo}>
         <Link to={ROUTES.HOME}>
-          <img src={LOGO} alt='stuff' />
+          <img src={LOGO} alt='logo' />
         </Link>
       </div>
       <div className={styles.info}>
-        <div className={styles.user}>
+        <div className={styles.user} onClick={handleClick}>
           <div
             className={styles.avatar}
-            style={{ backgroundImage: `url(${AVATAR})` }}
+            style={{ backgroundImage: `url(${user.avatar})` }}
           />
-          <div className={styles.username}>Guest</div>
+          <div className={styles.username}>{user.name}</div>
         </div>
         <form className={styles.form}>
           <div className={styles.icon}>

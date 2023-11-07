@@ -22,7 +22,20 @@ export interface Category {
   image: string
 }
 export interface IUser {
-  // id: number
-  name: any
-  // image: string
+  email: string
+  password: string
+  name: string
+  avatar: string
+  role: string
+  id: number
+}
+export interface RegisterUser {
+  email: string
+  password: string
+  name: string
+  avatar: string
+}
+export interface LoginUser {
+  email: string
+  password: string
 }
