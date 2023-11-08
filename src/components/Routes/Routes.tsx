@@ -6,6 +6,7 @@ import { ROUTES } from '../../utils/routes'
 import SingleProduct from '../Products/SingleProduct'
 import Profile from '../Profile/Profile'
 import SingleCategory from '../Categories/SingleCategory'
+import Cart from './../Cart/Cart'
 
 export const AppRoutes = () => (
   <Routes>
@@ -13,7 +14,7 @@ export const AppRoutes = () => (
     <Route path={ROUTES.PRODUCT} element={<SingleProduct />} />
     <Route path={ROUTES.PROFILE} element={<Profile />} />
     <Route path={ROUTES.CATEGORY} element={<SingleCategory />} />
-    {/* <Route path='/detail-user/:id' element={<DetailsUser />} />
-    <Route path='/*' element={<NotFound />} /> */}
+    <Route path={ROUTES.CART} element={<Cart />} />
+    {/* <Route path='/*' element={<NotFound />} /> */}
   </Routes>
 )

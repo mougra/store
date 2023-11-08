@@ -18,41 +18,7 @@ export const categoriesApi = createApi({
         url: 'categories',
       }),
     }),
-    // sortPosts: build.query<IPost[], Payload>({
-    //   query: ({ page = 1, limit = 9 }) => ({
-    //     url: 'posts',
-    //     params: {
-    //       _sort: 'title',
-    //       _page: page,
-    //       _limit: limit,
-    //     },
-    //   }),
-    // }),
-    // getPosts: build.query<IPost[], Payload>({
-    //   query: ({ page = 1, limit = 9 }) => ({
-    //     url: `posts`,
-    //     // ?_page=2&_limit=9
-    //     params: {
-    //       _page: page,
-    //       _limit: limit,
-    //     },
-    //   }),
-    // }),
-    // getUserPosts: build.query<IPost[], number>({
-    //   query: (postId) => ({
-    //     url: `posts`,
-    //     params: {
-    //       userId: postId,
-    //     },
-    //   }),
-    // }),
   }),
 })
 
-export const {
-  useFetchСategoriesQuery,
-  // useLazySortPostsQuery,
-  // useLazyGetPostsQuery,
-  // useGetPostsQuery,
-  // useGetUserPostsQuery,
-} = categoriesApi
+export const { useFetchСategoriesQuery } = categoriesApi

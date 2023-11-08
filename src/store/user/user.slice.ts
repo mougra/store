@@ -61,8 +61,6 @@ const initialState: UserState = {
 }
 
 const addCurrentUser = (state: any, { payload }: any) => {
-  console.log('addCurrentUser', payload)
-
   state.currentUser = payload
 }
 
@@ -86,10 +84,14 @@ export const userSlice = createSlice({
 
       state.cart = newCart
     },
-    toggleForm: (state, action: PayloadAction<any>) => {
+    removeItemFromCart: (state, action: PayloadAction<number>) => {
+      const newCart = state.cart.filter(({ id }: any) => id !== action.payload)
+      state.cart = newCart
+    },
+    toggleForm: (state, action: PayloadAction<boolean>) => {
       state.showForm = action.payload
     },
-    toggleFormType: (state, action: PayloadAction<any>) => {
+    toggleFormType: (state, action: PayloadAction<string>) => {
       state.formType = action.payload
     },
   },

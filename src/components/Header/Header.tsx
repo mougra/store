@@ -32,8 +32,6 @@ export const Header = () => {
   }
 
   const handleSearch = ({ target: { value } }: any) => {
-    console.log('value', value)
-
     setSearchValue(value)
   }
 
@@ -104,7 +102,7 @@ export const Header = () => {
             <svg className='icon-cart'>
               <use xlinkHref={`${process.env.PUBLIC_URL}/sprite.svg#bag`} />
             </svg>
-            <span className={styles.count}>2</span>
+            {cart.length && <span className={styles.count}>{cart.length}</span>}
           </Link>
         </div>
       </div>

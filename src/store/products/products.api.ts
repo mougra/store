@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IProducts, ServerResponse } from '../../models/models'
+import { IProducts } from '../../models/models'
 
 interface Payload {
   page?: number
@@ -32,34 +32,14 @@ export const productsApi = createApi({
         },
       }),
     }),
-    // sortPosts: build.query<IPost[], Payload>({
-    //   query: ({ page = 1, limit = 9 }) => ({
-    //     url: 'posts',
-    //     params: {
-    //       _sort: 'title',
-    //       _page: page,
-    //       _limit: limit,
-    //     },
-    //   }),
-    // }),
-    // getPosts: build.query<IPost[], Payload>({
-    //   query: ({ page = 1, limit = 9 }) => ({
-    //     url: `posts`,
-    //     // ?_page=2&_limit=9
-    //     params: {
-    //       _page: page,
-    //       _limit: limit,
-    //     },
-    //   }),
-    // }),
-    // getUserPosts: build.query<IPost[], number>({
-    //   query: (postId) => ({
-    //     url: `posts`,
-    //     params: {
-    //       userId: postId,
-    //     },
-    //   }),
-    // }),
+    getProductCategory: build.query<any, any>({
+      query: (params) => ({
+        url: 'products/',
+        params: {
+          ...params,
+        },
+      }),
+    }),
   }),
 })
 
@@ -67,8 +47,6 @@ export const {
   useFetchProductsQuery,
   useGetProductQuery,
   useSearchProductQuery,
-  // useLazySortPostsQuery,
-  // useLazyGetPostsQuery,
-  // useGetPostsQuery,
-  // useGetUserPostsQuery,
+  useGetProductCategoryQuery,
+  useLazyGetProductCategoryQuery,
 } = productsApi

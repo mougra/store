@@ -39,3 +39,12 @@ export interface LoginUser {
   email: string
   password: string
 }
+
+export interface defaultParamsProps {
+  categoryId: string | undefined
+  limit: number
+  offset: number
+  title: string
+  price_min: number
+  price_max: number
+}

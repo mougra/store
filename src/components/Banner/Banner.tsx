@@ -1,8 +1,6 @@
-import React from "react";
+import styles from '../../styles/Home.module.css'
 
-import styles from "../../styles/Home.module.css";
-
-import bannerImg from "../../images/banner.png";
+import bannerImg from '../../images/banner.png'
 
 const Banner = () => (
   <section className={styles.banner}>
@@ -23,6 +21,6 @@ const Banner = () => (
       </p>
     </div>
   </section>
-);
+)
 
-export default Banner;
+export default Banner
