@@ -7,6 +7,7 @@ import { useFetchСategoriesQuery } from '../../store/categories/categories.api'
 import Banner from '../Banner/Banner'
 import { useActions } from '../../hooks/actions'
 import { useAppSelector } from '../../hooks/redux'
+import { useWindowSize } from '../../hooks/resize'
 
 export const Home = () => {
   const { data: products } = useFetchProductsQuery('products')
@@ -20,13 +21,27 @@ export const Home = () => {
     filterProducts({ data: products, value: 100 })
   }, [products])
 
+  const size = useWindowSize()
+
   return (
     <>
       <Poster />
-      <Products title='Trending' products={products} amount={5} />
-      <Categories title='Worth seeing' categories={categories} amount={5} />
+      <Products
+        title='Trending'
+        products={products}
+        amount={size.countsProducts}
+      />
+      <Categories
+        title='Worth seeing'
+        categories={categories}
+        amount={size.countsProducts}
+      />
       <Banner />
-      <Products title='Less than 100$' products={filtered} amount={5} />
+      <Products
+        title='Less than 100$'
+        products={filtered}
+        amount={size.countsProducts}
+      />
     </>
   )
 }

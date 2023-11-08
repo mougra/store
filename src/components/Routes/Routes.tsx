@@ -7,6 +7,7 @@ import SingleProduct from '../Products/SingleProduct'
 import Profile from '../Profile/Profile'
 import SingleCategory from '../Categories/SingleCategory'
 import Cart from './../Cart/Cart'
+import NotFound from '../NotFound/NotFound'
 
 export const AppRoutes = () => (
   <Routes>
@@ -15,6 +16,6 @@ export const AppRoutes = () => (
     <Route path={ROUTES.PROFILE} element={<Profile />} />
     <Route path={ROUTES.CATEGORY} element={<SingleCategory />} />
     <Route path={ROUTES.CART} element={<Cart />} />
-    {/* <Route path='/*' element={<NotFound />} /> */}
+    <Route path='/*' element={<NotFound />} />
   </Routes>
 )

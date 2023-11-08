@@ -48,3 +48,11 @@ export interface defaultParamsProps {
   price_min: number
   price_max: number
 }
+
+export interface Size {
+  width: number | undefined
+  // height: number | undefined
+  SCREEN_SM: boolean
+  SCREEN_LG: boolean
+  countsProducts: number | undefined
+}

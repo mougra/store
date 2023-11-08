@@ -3,11 +3,12 @@
   align-items: center;
   justify-content: space-between;
   margin-top: 20px;
-  padding: 24px;
+  padding: 0 24px;
 }
 
 .logo {
   width: 61px;
+  padding: 10px 0;
 }
 
 .logo a {
@@ -30,9 +31,9 @@
 }
 
 .socials svg {
-  width: 24px;
-  height: 24px;
-  fill: var(--dark-sea);
+  width: 44px;
+  height: 44px;
+  fill: var(--violet-dark);
 }
 
 .socials svg:hover {

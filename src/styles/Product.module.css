@@ -1,7 +1,8 @@
 .product {
   display: flex;
-  flex-grow: 1;
-  max-width: calc(100% - 324px);
+  /* flex-grow: 1;
+  max-width: calc(100% - 324px); */
+  flex: 1;
   padding: 24px;
   column-gap: 32px;
   color: var(--light);
@@ -129,4 +130,30 @@
 .add:disabled {
   cursor: not-allowed;
   background: var(--bg);
+}
+
+@media screen and (max-width: 1000px) {
+  .product {
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .images {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .current {
+    width: 200px;
+    height: 200px;
+  }
+
+  .images-list {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .image {
+    width: 70px;
+    height: 70px;
+  }
 }

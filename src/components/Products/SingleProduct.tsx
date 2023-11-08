@@ -10,6 +10,7 @@ import Product from './Product'
 import Products from './Products'
 import { useActions } from '../../hooks/actions'
 import { useAppSelector } from '../../hooks/redux'
+import { useWindowSize } from '../../hooks/resize'
 
 const SingleProduct = () => {
   const { id } = useParams()
@@ -39,12 +40,18 @@ const SingleProduct = () => {
     getRelatedProducts({ data: products, value: product.category.id })
   }, [product, products])
 
+  const size = useWindowSize()
+
   return !product ? (
     <section className='preloader'>Loading...</section>
   ) : (
     <>
       <Product {...product} />
-      <Products products={related} amount={5} title='Related products' />
+      <Products
+        products={related}
+        amount={size.countsProducts}
+        title='Related products'
+      />
     </>
   )
 }

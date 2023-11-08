@@ -1,19 +1,25 @@
 .header {
   width: 100%;
   display: flex;
+  gap: 30px;
   align-items: center;
-  padding: 25px 20px;
+  justify-content: space-between;
+  padding: 0 20px;
 }
 
 .logo {
-  width: 304px;
+  padding: 10px 15px;
+  flex: 1;
+}
+.logo img {
+  max-width: 104px;
 }
 
 .info {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-grow: 1;
+  flex: 3;
 }
 
 .user {
@@ -166,4 +172,35 @@
   border-radius: 6px;
   height: 50px;
   width: 50px;
+}
+
+@media screen and (max-width: 815px) {
+  .form {
+    max-width: 170px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .header {
+    gap: 15px;
+    padding: 10px 20px;
+  }
+
+  .logo {
+    padding: 0 0;
+    flex: 0;
+  }
+  .logo img {
+    max-width: 84px;
+  }
+  .info {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .form {
+    order: 3;
+  }
+  .account {
+    order: 2;
+  }
 }

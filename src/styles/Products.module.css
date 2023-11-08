@@ -14,12 +14,13 @@
   background: var(--bg);
   border-radius: 8px;
   overflow: hidden;
-  width: calc(100% / 5 - 20px);
+  /* width: calc(100% / 5 - 20px); */
+  flex: 1;
 }
 
-.product:nth-child(5n) {
+/* .product:nth-child(5n) {
   width: calc(100% / 5);
-}
+} */
 
 .image {
   width: 100%;
@@ -90,4 +91,16 @@
 .button {
   margin-top: 24px;
   text-align: center;
+}
+
+@media screen and (max-width: 815px) {
+  .image {
+    height: 310px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .image {
+    height: 210px;
+  }
 }

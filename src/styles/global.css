@@ -56,7 +56,8 @@ li {
 }
 
 .app {
-  width: 1274px;
+  max-width: 1300px;
+  padding: 0 15px;
   margin: 0 auto;
 }
 
@@ -125,4 +126,11 @@ input {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.other {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 3;
 }
