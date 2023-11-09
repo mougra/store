@@ -56,3 +56,10 @@ export interface Size {
   SCREEN_LG: boolean
   countsProducts: number | undefined
 }
+
+export interface createUserProps {
+  name: string
+  email: string
+  password: string
+  avatar: string
+}

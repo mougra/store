@@ -7,6 +7,7 @@ import Products from '../Products/Products'
 import { useLazyGetProductCategoryQuery } from '../../store/products/products.api'
 import { defaultParamsProps } from '../../models/models'
 import { useFetchСategoriesQuery } from '../../store/categories/categories.api'
+import { useWindowSize } from '../../hooks/resize'
 
 export interface defaultValuesProps {
   title: string
@@ -87,6 +88,8 @@ const Category = () => {
     setParams(defaultParams)
     setEnd(false)
   }
+
+  const size = useWindowSize()
 
   return (
     <section className={styles.wrapper}>

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
 import axios from '../../axios'
-
+import { createUserProps } from '../../models/models'
 interface UserState {
   currentUser: {} | null
   cart: any
@@ -12,8 +12,13 @@ interface UserState {
 
 export const createUser: any = createAsyncThunk(
   'users/createUser',
-  async (payload, thunkAPI) => {
+  async (payload: createUserProps, thunkAPI) => {
     try {
+      if (payload.avatar == '') {
+        payload.avatar =
+          'https://koshka.top/uploads/posts/2021-11/1638230685_4-koshka-top-p-krasivie-koshki-na-avatarku-7.jpg'
+      }
+
       const res = await axios.post(`users`, payload)
       return res.data
     } catch (err) {

@@ -20,9 +20,7 @@ const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
   const handleSubmit = (e: any) => {
     e.preventDefault()
 
-    const isNotEmpty = Object.values(values).every((val) => val)
-
-    if (!isNotEmpty) return
+    if (!values.name || !values.email || !values.password) return
 
     dispatch(createUser(values))
     closeForm()
@@ -83,7 +81,7 @@ const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
             value={values.avatar}
             autoComplete='off'
             onChange={handleChange}
-            required
+            // required
           />
         </div>
 
