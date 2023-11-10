@@ -14,7 +14,7 @@ export const createUser: any = createAsyncThunk(
   'users/createUser',
   async (payload: createUserProps, thunkAPI) => {
     try {
-      if (payload.avatar == '') {
+      if (payload.avatar === '') {
         payload.avatar =
           'https://koshka.top/uploads/posts/2021-11/1638230685_4-koshka-top-p-krasivie-koshki-na-avatarku-7.jpg'
       }

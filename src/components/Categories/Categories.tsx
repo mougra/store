@@ -2,29 +2,24 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from '../../styles/Categories.module.css'
+import { Category } from '../../models/models'
 
 interface CategoriesProps {
-  title: any
+  title: string
   style?: any
-  categories: any
+  categories: Category[] | undefined
   amount: any
 }
 
-interface CategoryProps {
-  id: any
-  name: any
-  image: any
-}
-
 const Categories = ({ title, categories = [], amount }: CategoriesProps) => {
-  const list = categories.filter((_: any, i: any) => i < amount)
+  const list = categories.filter((_: Category, i: number) => i < amount)
 
   return (
     <section className={styles.section}>
       <h2>{title}</h2>
 
       <div className={styles.list}>
-        {list.map(({ id, name, image }: CategoryProps) => (
+        {list.map(({ id, name, image }: Category) => (
           <Link to={`/categories/${id}`} key={id} className={styles.item}>
             <div
               className={styles.image}

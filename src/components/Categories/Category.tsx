@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import styles from '../../styles/Category.module.css'
 
 import Products from '../Products/Products'
 import { useLazyGetProductCategoryQuery } from '../../store/products/products.api'
-import { defaultParamsProps } from '../../models/models'
+import { ProductRes, defaultParamsProps } from '../../models/models'
 import { useFetchСategoriesQuery } from '../../store/categories/categories.api'
 import { useWindowSize } from '../../hooks/resize'
 
@@ -17,8 +17,7 @@ export interface defaultValuesProps {
 
 const Category = () => {
   const { id } = useParams()
-  const { data: list, isLoading: isLoadingList } =
-    useFetchСategoriesQuery('categories')
+  const { data: list } = useFetchСategoriesQuery('categories')
 
   const defaultValues: defaultValuesProps = {
     title: '',
@@ -33,13 +32,13 @@ const Category = () => {
     ...defaultValues,
   }
 
-  const [isEnd, setEnd] = useState(false)
+  const [isEnd, setEnd] = useState<boolean>(false)
   const [cat, setCat] = useState<null | any>(null)
   const [items, setItems] = useState([])
   const [values, setValues] = useState(defaultValues)
   const [params, setParams] = useState(defaultParams)
 
-  const [fethProductCategory, { data, error, isLoading, isSuccess }] =
+  const [fethProductCategory, { data, isLoading, isSuccess }] =
     useLazyGetProductCategoryQuery()
 
   useEffect(() => {
@@ -75,7 +74,7 @@ const Category = () => {
     setValues({ ...values, [name]: value })
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     setItems([])

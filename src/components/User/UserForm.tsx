@@ -12,7 +12,7 @@ const UserForm = () => {
   const { toggleForm, toggleFormType } = useActions()
 
   const closeForm = () => toggleForm(false)
-  const toggleCurrentFormType = (type: any) => toggleFormType(type)
+  const toggleCurrentFormType = (type: string) => toggleFormType(type)
 
   return showForm ? (
     <>
