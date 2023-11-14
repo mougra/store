@@ -1,8 +1,9 @@
 import styles from '../../styles/Cart.module.css'
 import { sumBy } from '../../utils/common'
-import { useAppSelector } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { useActions } from '../../hooks/actions'
 import { UserCart } from '../../models/models'
+import { addItemToCart, removeItemFromCart } from '../../store/user/user.slice'
 
 export interface sumByProps {
   quantity: number
@@ -11,15 +12,15 @@ export interface sumByProps {
 
 const Cart = () => {
   const { cart } = useAppSelector(({ user }) => user)
-
-  const { addItemToCart, removeItemFromCart } = useActions()
+  const dispatch = useAppDispatch()
+  // const { addItemToCart, removeItemFromCart } = useActions()
 
   const changeQuantity = (item: UserCart, quantity: number) => {
-    addItemToCart({ ...item, quantity })
+    dispatch(addItemToCart({ ...item, quantity }))
   }
 
   const removeItem = (id: number) => {
-    removeItemFromCart(id)
+    dispatch(removeItemFromCart(id))
   }
 
   return (

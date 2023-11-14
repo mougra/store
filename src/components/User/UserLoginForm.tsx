@@ -1,7 +1,7 @@
-import React, { FormEvent, useState } from 'react'
+import React, { FormEvent, useEffect, useState } from 'react'
 import styles from '../../styles/User.module.css'
-import { loginUser } from '../../store/user/user.slice'
-import { useAppDispatch } from '../../hooks/redux'
+import { loginUser } from '../../store/user/user.actions'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 
 const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
   const dispatch = useAppDispatch()
@@ -9,6 +9,12 @@ const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
     email: '',
     password: '',
   })
+
+  const {
+    currentUser,
+    error,
+    loading: isLoading,
+  } = useAppSelector((state) => state.user)
 
   const handleChange = ({ target: { value, name } }: any) => {
     setValues({ ...values, [name]: value })
@@ -20,11 +26,7 @@ const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
     const isNotEmpty = Object.values(values).every((val) => val)
 
     if (!isNotEmpty) return
-
-    const log = dispatch(loginUser(values))
-    console.log(log)
-
-    closeForm()
+    dispatch(loginUser(values))
   }
 
   return (

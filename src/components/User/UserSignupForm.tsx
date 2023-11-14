@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 
 import styles from '../../styles/User.module.css'
 import { useAppDispatch } from '../../hooks/redux'
-import { createUser } from '../../store/user/user.slice'
+import { createUser } from '../../store/user/user.actions'
+import { RegisterUser } from '../../models/models'
 
 const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
   const dispatch = useAppDispatch()
-  const [values, setValues] = useState({
+  const [values, setValues] = useState<RegisterUser>({
     name: '',
     email: '',
     password: '',
