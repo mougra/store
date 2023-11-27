@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 
 import styles from '../../styles/Profile.module.css'
+import { updateUser } from '../../store/user/user.slice'
 import { useAppDispatch } from '../../hooks/redux'
-import { updateUser } from '../../store/user/user.actions'
 
 const Profile = () => {
   const dispatch = useAppDispatch()

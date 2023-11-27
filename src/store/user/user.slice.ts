@@ -1,18 +1,72 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import axios from '../../axios'
+import { AuthType, createUserProps, UserResponse } from '../../models/models'
 
 interface UserState {
-  currentUser: {} | null
+  currentUser: UserResponse | null
   cart: any
-  loading: boolean
+  isLoading: boolean
   error: string
-  formType: string
+  formType: AuthType
   showForm: boolean
+}
+
+export const createUser: any = createAsyncThunk(
+  'users/createUser',
+  async (payload: createUserProps, thunkAPI) => {
+    try {
+      if (payload.avatar === '') {
+        payload.avatar =
+          'https://koshka.top/uploads/posts/2021-11/1638230685_4-koshka-top-p-krasivie-koshki-na-avatarku-7.jpg'
+      }
+
+      const res = await axios.post(`users`, payload)
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err)
+    }
+  }
+)
+
+export const loginUser: any = createAsyncThunk(
+  'users/loginUser',
+  async (payload, thunkAPI) => {
+    try {
+      const res = await axios.post(`auth/login`, payload)
+      localStorage.setItem('token', res.data.access_token)
+
+      const login = await axios(`auth/profile`, {
+        headers: {
+          Authorization: `Bearer ${res.data.access_token}`,
+        },
+      })
+      return login.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err)
+    }
+  }
+)
+
+export const updateUser: any = createAsyncThunk(
+  'users/updateUser',
+  async (payload: any, thunkAPI) => {
+    try {
+      const res = await axios.put(`users/${payload.id}`, payload)
+      return res.data
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err)
+    }
+  }
+)
+
+const addCurrentUser = (state: UserState, { payload }: any) => {
+  state.currentUser = payload
 }
 
 const initialState: UserState = {
   currentUser: null,
   cart: [],
-  loading: false,
+  isLoading: false,
   error: '',
   formType: 'signup',
   showForm: false,
@@ -22,14 +76,6 @@ export const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    fetching(state) {
-      state.loading = true
-    },
-    fetchSuccess(state, action: PayloadAction<any>) {
-      state.loading = false
-      state.currentUser = action.payload
-      state.error = ''
-    },
     addItemToCart(state, action: PayloadAction<any>) {
       let newCart = [...state.cart]
       const found = state.cart.find(({ id }: any) => id === action.payload.id)
@@ -52,26 +98,18 @@ export const userSlice = createSlice({
     },
     toggleForm: (state, action: PayloadAction<boolean>) => {
       state.showForm = action.payload
-      state.error = ''
     },
-    toggleFormType: (state, action: PayloadAction<string>) => {
+    toggleFormType: (state, action: PayloadAction<AuthType>) => {
       state.formType = action.payload
     },
-    fetchError(state, action: PayloadAction<Error>) {
-      state.loading = false
-      state.error = action.payload.message
-    },
-    logoutUser(state) {
-      state.currentUser = null
-    },
+  },
+
+  extraReducers: (builder) => {
+    builder.addCase(createUser.fulfilled, addCurrentUser)
+    builder.addCase(loginUser.fulfilled, addCurrentUser)
+    builder.addCase(updateUser.fulfilled, addCurrentUser)
   },
 })
 
-export default userSlice.reducer
-export const {
-  logoutUser,
-  toggleForm,
-  toggleFormType,
-  addItemToCart,
-  removeItemFromCart,
-} = userSlice.actions
+export const userActions = userSlice.actions
+export const userReducer = userSlice.reducer

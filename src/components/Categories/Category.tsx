@@ -1,13 +1,12 @@
-import React, { FormEvent, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import styles from '../../styles/Category.module.css'
 
 import Products from '../Products/Products'
 import { useLazyGetProductCategoryQuery } from '../../store/products/products.api'
-import { ProductRes, defaultParamsProps } from '../../models/models'
+import { defaultParamsProps } from '../../models/models'
 import { useFetchСategoriesQuery } from '../../store/categories/categories.api'
-import { useWindowSize } from '../../hooks/resize'
 
 export interface defaultValuesProps {
   title: string
@@ -17,7 +16,8 @@ export interface defaultValuesProps {
 
 const Category = () => {
   const { id } = useParams()
-  const { data: list } = useFetchСategoriesQuery('categories')
+  const { data: list, isLoading: isLoadingList } =
+    useFetchСategoriesQuery('categories')
 
   const defaultValues: defaultValuesProps = {
     title: '',
@@ -32,13 +32,13 @@ const Category = () => {
     ...defaultValues,
   }
 
-  const [isEnd, setEnd] = useState<boolean>(false)
+  const [isEnd, setEnd] = useState(false)
   const [cat, setCat] = useState<null | any>(null)
   const [items, setItems] = useState([])
   const [values, setValues] = useState(defaultValues)
   const [params, setParams] = useState(defaultParams)
 
-  const [fethProductCategory, { data, isLoading, isSuccess }] =
+  const [fethProductCategory, { data, error, isLoading, isSuccess }] =
     useLazyGetProductCategoryQuery()
 
   useEffect(() => {
@@ -50,7 +50,7 @@ const Category = () => {
 
     setValues(defaultValues)
     setItems([])
-    setEnd(false)
+
     setParams({ ...defaultParams, categoryId: id })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
@@ -58,7 +58,13 @@ const Category = () => {
   useEffect(() => {
     if (isLoading) return
 
-    if (!data) return setEnd(true)
+    if (!data) {
+      return
+    }
+
+    if (data.length < 5) {
+      setEnd(true)
+    }
 
     setItems((_items): any => [..._items, ...data])
   }, [data, isLoading])
@@ -74,7 +80,7 @@ const Category = () => {
     setValues({ ...values, [name]: value })
   }
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: any) => {
     e.preventDefault()
 
     setItems([])
@@ -87,8 +93,6 @@ const Category = () => {
     setParams(defaultParams)
     setEnd(false)
   }
-
-  const size = useWindowSize()
 
   return (
     <section className={styles.wrapper}>
@@ -144,17 +148,17 @@ const Category = () => {
         />
       )}
 
-      {!isEnd && (
-        <div className={styles.more}>
-          <button
-            onClick={() =>
-              setParams({ ...params, offset: params.offset + params.limit })
-            }
-          >
-            See more
-          </button>
-        </div>
-      )}
+      <div className={styles.more}>
+        <button
+          className={styles.btn}
+          disabled={isEnd}
+          onClick={() =>
+            setParams({ ...params, offset: params.offset + params.limit })
+          }
+        >
+          See more
+        </button>
+      </div>
     </section>
   )
 }

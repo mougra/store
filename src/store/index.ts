@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import { categoriesApi } from './categories/categories.api'
 import { productsApi } from './products/products.api'
 import { productsReducer } from './products/products.slice'
-import userReducer from './user/user.slice'
+import { userReducer } from './user/user.slice'
 
 export const store = configureStore({
   reducer: {

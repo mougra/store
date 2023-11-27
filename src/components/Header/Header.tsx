@@ -6,14 +6,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 import LOGO from '../../images/logo.png'
 import AVATAR from '../../images/avatar.jpg'
-import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { useAppSelector } from '../../hooks/redux'
 import { useActions } from '../../hooks/actions'
 import { useSearchProductQuery } from '../../store/products/products.api'
-import { logoutUser, toggleForm } from '../../store/user/user.slice'
 
 export const Header = () => {
   const navigate = useNavigate()
-  const dispatch = useAppDispatch()
+
   const { currentUser, cart } = useAppSelector((state) => state.user)
 
   const [user, setUser] = useState<any>({ name: 'Guest', avatar: AVATAR })
@@ -25,19 +24,15 @@ export const Header = () => {
     setUser(currentUser)
   }, [currentUser])
 
+  const { toggleForm } = useActions()
+
   const handleClick = () => {
-    if (!currentUser) dispatch(toggleForm(true))
+    if (!currentUser) toggleForm(true)
     else navigate('/profile')
   }
 
   const handleSearch = ({ target: { value } }: any) => {
     setSearchValue(value)
-  }
-
-  function lohoutHandle() {
-    dispatch(logoutUser())
-    setUser({ name: 'Guest', avatar: AVATAR })
-    navigate('/store')
   }
 
   return (
@@ -55,11 +50,6 @@ export const Header = () => {
           />
           <div className={styles.username}>{user.name}</div>
         </div>
-        {currentUser && (
-          <button className={styles.more} onClick={lohoutHandle}>
-            logout
-          </button>
-        )}
         <form className={styles.form}>
           <div className={styles.icon}>
             <svg className='icon'>

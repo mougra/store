@@ -3,14 +3,12 @@ import { Link } from 'react-router-dom'
 import styles from '../../styles/Product.module.css'
 import { useActions } from '../../hooks/actions'
 import { IProducts } from '../../models/models'
-import { useAppDispatch } from '../../hooks/redux'
-import { addItemToCart } from '../../store/user/user.slice'
 
 const SIZES = [4, 4.5, 5]
 
 const Product = (item: IProducts) => {
   const { title, price, images, description } = item
-  const dispatch = useAppDispatch()
+
   const [currentImage, setCurrentImage] = useState<any>()
   const [currentSize, setCurrentSize] = useState<number>()
 
@@ -20,10 +18,10 @@ const Product = (item: IProducts) => {
     setCurrentImage(images[0])
   }, [images])
 
-  // const { addItemToCart } = useActions()
+  const { addItemToCart } = useActions()
 
   const addToCart = () => {
-    dispatch(addItemToCart(item))
+    addItemToCart(item)
   }
 
   return (

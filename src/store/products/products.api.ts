@@ -1,5 +1,10 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { IProducts, defaultParamsProps } from '../../models/models'
+import { IProducts } from '../../models/models'
+
+interface Payload {
+  page?: number
+  limit?: number
+}
 
 export const productsApi = createApi({
   reducerPath: 'products',
@@ -27,7 +32,7 @@ export const productsApi = createApi({
         },
       }),
     }),
-    getProductCategory: build.query<IProducts[], defaultParamsProps>({
+    getProductCategory: build.query<any, any>({
       query: (params) => ({
         url: 'products/',
         params: {

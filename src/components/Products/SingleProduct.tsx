@@ -30,7 +30,7 @@ const SingleProduct = () => {
 
   useEffect(() => {
     if (!isFetching && !isLoading && !isSuccess) {
-      navigate('/store')
+      navigate('/')
     }
     //   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoading, isFetching, isSuccess])

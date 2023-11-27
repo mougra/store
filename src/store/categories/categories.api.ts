@@ -1,5 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { Category } from '../../models/models'
+import { ICategories, ServerResponse } from '../../models/models'
+import { createSelector } from '@reduxjs/toolkit'
+
+interface Payload {
+  page?: number
+  limit?: number
+}
 
 export const categoriesApi = createApi({
   reducerPath: 'categories',
@@ -7,7 +13,7 @@ export const categoriesApi = createApi({
     baseUrl: process.env.REACT_APP_BASE_URL,
   }),
   endpoints: (build) => ({
-    fetchСategories: build.query<Category[], string>({
+    fetchСategories: build.query<ICategories[], string>({
       query: () => ({
         url: 'categories',
       }),

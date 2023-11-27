@@ -12,7 +12,7 @@ export const Footer = () => {
     <section className={styles.footer}>
       <div className={styles.logo}>
         <Link to={ROUTES.HOME}>
-          <img src={LOGO} alt='store' />
+          <img src={LOGO} alt='stuff' />
         </Link>
       </div>
       <div className={styles.rights}>

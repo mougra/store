@@ -6,6 +6,7 @@
 
 .filters {
   display: flex;
+
   gap: 20px;
   width: 100%;
   margin-top: 24px;
@@ -43,10 +44,22 @@
   margin: 32px auto 0 auto;
   text-align: center;
 }
+.btn:disabled {
+  background: var(--dark-sea);
+}
 
 .back {
   display: flex;
   align-items: center;
   gap: 20px;
   margin-top: 24px;
+}
+
+@media screen and (max-width: 876px) {
+  .filters {
+    flex-wrap: wrap;
+  }
+  .filter {
+    flex: 1;
+  }
 }

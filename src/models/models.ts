@@ -2,22 +2,24 @@ export interface ServerResponse<T> {
   data: T[]
 }
 
-export interface UserCart {
+export type AuthType = 'login' | 'signup'
+
+export interface UserResponse {
   id: number
-  title: string
-  price: number
-  description: string
-  category: Category
-  images: string[]
-  quantity: number
+  email: string
+  password: string
+  name: string
+  role: string
+  avatar: string
+  creationAt: string
+  updatedAt: string
 }
 
-export interface Category {
+export interface ICategories {
   id: number
   name: string
   image: string
 }
-
 export interface IProducts {
   id: number
   title: string
@@ -27,6 +29,11 @@ export interface IProducts {
   images: string[]
 }
 
+export interface Category {
+  id: number
+  name: string
+  image: string
+}
 export interface IUser {
   email: string
   password: string
@@ -68,23 +75,4 @@ export interface createUserProps {
   email: string
   password: string
   avatar: string
-}
-
-export interface ProductRes {
-  title: string
-  price: number
-  description: string
-  images: string[]
-  category: CategoryRes
-  id: number
-  creationAt: string
-  updatedAt: string
-}
-
-export interface CategoryRes {
-  id: number
-  name: string
-  image: string
-  creationAt: string
-  updatedAt: string
 }
