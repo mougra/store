@@ -5,6 +5,7 @@ import UserLoginForm from './UserLoginForm'
 import styles from '../../styles/User.module.css'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { toggleForm, toggleFormType } from '../../store/user/user.slice'
+import { AuthType } from '../../models/models'
 
 const UserForm = () => {
   const dispatch = useAppDispatch()
@@ -14,7 +15,8 @@ const UserForm = () => {
   )
 
   const closeForm = () => dispatch(toggleForm(false))
-  const toggleCurrentFormType = (type: string) => dispatch(toggleFormType(type))
+  const toggleCurrentFormType = (type: AuthType) =>
+    dispatch(toggleFormType(type))
 
   return showForm ? (
     <>

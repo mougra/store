@@ -2,6 +2,19 @@ export interface ServerResponse<T> {
   data: T[]
 }
 
+export type AuthType = 'login' | 'signup'
+
+export interface UserResponse {
+  id: number
+  email: string
+  password: string
+  name: string
+  role: string
+  avatar: string
+  creationAt: string
+  updatedAt: string
+}
+
 export interface UserCart {
   id: number
   title: string

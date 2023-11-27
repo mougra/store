@@ -2,28 +2,20 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from '../../styles/Products.module.css'
-import { useWindowSize } from '../../hooks/resize'
+import { IProducts } from '../../models/models'
 
 interface ProductsProps {
-  title: any
+  title: string
   style?: any
-  products: any
-  amount: any
-}
-
-interface ProductProps {
-  id: any
-  images: any
-  title: any
-  category: any
-  price: any
+  products?: IProducts[]
+  amount?: number
 }
 
 const Products = ({
   title,
   style = {},
   products = [],
-  amount,
+  amount = 5,
 }: ProductsProps) => {
   const list = products.filter((_: any, i: any) => i < amount)
 
@@ -39,7 +31,7 @@ const Products = ({
             title,
             category: { name: cat },
             price,
-          }: ProductProps) => (
+          }: IProducts) => (
             <Link to={`/products/${id}`} key={id} className={styles.product}>
               <div
                 className={styles.image}

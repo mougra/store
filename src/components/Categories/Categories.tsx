@@ -7,11 +7,15 @@ import { Category } from '../../models/models'
 interface CategoriesProps {
   title: string
   style?: any
-  categories: Category[] | undefined
-  amount: any
+  categories?: Category[]
+  amount?: number
 }
 
-const Categories = ({ title, categories = [], amount }: CategoriesProps) => {
+const Categories = ({
+  title,
+  categories = [],
+  amount = 5,
+}: CategoriesProps) => {
   const list = categories.filter((_: Category, i: number) => i < amount)
 
   return (

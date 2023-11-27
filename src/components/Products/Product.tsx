@@ -20,8 +20,6 @@ const Product = (item: IProducts) => {
     setCurrentImage(images[0])
   }, [images])
 
-  // const { addItemToCart } = useActions()
-
   const addToCart = () => {
     dispatch(addItemToCart(item))
   }

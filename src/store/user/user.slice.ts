@@ -1,11 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { AuthType, UserResponse } from '../../models/models'
 
 interface UserState {
-  currentUser: {} | null
+  currentUser: UserResponse | null
   cart: any
   loading: boolean
   error: string
-  formType: string
+  formType: AuthType
   showForm: boolean
 }
 
@@ -54,7 +55,7 @@ export const userSlice = createSlice({
       state.showForm = action.payload
       state.error = ''
     },
-    toggleFormType: (state, action: PayloadAction<string>) => {
+    toggleFormType: (state, action: PayloadAction<AuthType>) => {
       state.formType = action.payload
     },
     fetchError(state, action: PayloadAction<Error>) {
