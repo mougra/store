@@ -1,7 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
 import styles from '../../styles/User.module.css'
 import { loginUser } from '../../store/user/user.actions'
-import { useAppDispatch } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { AuthType } from '../../models/models'
 
 interface UserSignupFormProps {

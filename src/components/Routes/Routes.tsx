@@ -11,7 +11,7 @@ import NotFound from '../NotFound/NotFound'
 
 export const AppRoutes = () => (
   <Routes>
-    <Route path='/' element={<Home />} />
+    <Route path={ROUTES.HOME} element={<Home />} />
     <Route path={ROUTES.PRODUCT} element={<SingleProduct />} />
     <Route path={ROUTES.PROFILE} element={<Profile />} />
     <Route path={ROUTES.CATEGORY} element={<SingleCategory />} />

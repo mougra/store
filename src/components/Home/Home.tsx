@@ -37,7 +37,6 @@ export const Home = () => {
         amount={size.countsProducts}
       />
       <Banner />
-
       <Products
         title='Less than 100$'
         products={filtered}
