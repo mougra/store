@@ -2,26 +2,35 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from '../../styles/Products.module.css'
-import { IProducts } from '../../models/models'
+import { useWindowSize } from '../../hooks/resize'
 
 interface ProductsProps {
-  title: string
+  title: any
   style?: any
-  products?: IProducts[]
-  amount?: number
+  products: any
+  amount: any
+}
+
+interface ProductProps {
+  id: any
+  images: any
+  title: any
+  category: any
+  price: any
 }
 
 const Products = ({
   title,
   style = {},
   products = [],
-  amount = 5,
+  amount,
 }: ProductsProps) => {
   const list = products.filter((_: any, i: any) => i < amount)
 
   return (
     <section className={styles.products} style={style}>
       {title && <h2>{title}</h2>}
+
       {list.length === 0 && (
         <span className={styles.noless}>
           There are no products cheaper than 100$
@@ -35,7 +44,7 @@ const Products = ({
             title,
             category: { name: cat },
             price,
-          }: IProducts) => (
+          }: ProductProps) => (
             <Link to={`/products/${id}`} key={id} className={styles.product}>
               <div
                 className={styles.image}

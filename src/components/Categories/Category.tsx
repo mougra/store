@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import styles from '../../styles/Category.module.css'
 
 import Products from '../Products/Products'
 import { useLazyGetProductCategoryQuery } from '../../store/products/products.api'
-import { defaultParamsProps } from '../../models/models'
+import { CategoryRes, defaultParamsProps } from '../../models/models'
 import { useFetchСategoriesQuery } from '../../store/categories/categories.api'
 
 export interface defaultValuesProps {
@@ -16,8 +16,7 @@ export interface defaultValuesProps {
 
 const Category = () => {
   const { id } = useParams()
-  const { data: list, isLoading: isLoadingList } =
-    useFetchСategoriesQuery('categories')
+  const { data: list } = useFetchСategoriesQuery('categories')
 
   const defaultValues: defaultValuesProps = {
     title: '',
@@ -33,12 +32,12 @@ const Category = () => {
   }
 
   const [isEnd, setEnd] = useState(false)
-  const [cat, setCat] = useState<null | any>(null)
+  const [cat, setCat] = useState<any | CategoryRes>({} as CategoryRes)
   const [items, setItems] = useState([])
   const [values, setValues] = useState(defaultValues)
   const [params, setParams] = useState(defaultParams)
 
-  const [fethProductCategory, { data, error, isLoading, isSuccess }] =
+  const [fethProductCategory, { data, isLoading, isSuccess }] =
     useLazyGetProductCategoryQuery()
 
   useEffect(() => {
@@ -50,7 +49,7 @@ const Category = () => {
 
     setValues(defaultValues)
     setItems([])
-
+    setEnd(false)
     setParams({ ...defaultParams, categoryId: id })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
@@ -58,13 +57,7 @@ const Category = () => {
   useEffect(() => {
     if (isLoading) return
 
-    if (!data) {
-      return
-    }
-
-    if (data.length < 5) {
-      setEnd(true)
-    }
+    if (!data) return setEnd(true)
 
     setItems((_items): any => [..._items, ...data])
   }, [data, isLoading])
@@ -76,11 +69,13 @@ const Category = () => {
     setCat(category)
   }, [list, id])
 
-  const handleChange = ({ target: { value, name } }: any) => {
+  const handleChange = ({
+    target: { value, name },
+  }: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: value })
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     setItems([])

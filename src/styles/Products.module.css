@@ -8,14 +8,13 @@
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
-  justify-content: start;
 }
 
 .product {
   background: var(--bg);
   border-radius: 8px;
-  /* min-width: calc(100% / 6); */
-  /* max-width: calc(33% - 40px); */
+  overflow: hidden;
+  /* width: calc(100% / 5 - 20px); */
   flex: 1;
 }
 
@@ -101,16 +100,10 @@
   .image {
     height: 310px;
   }
-  /* .product {
-    min-width: calc(50% - 20px);
-  } */
 }
 
 @media screen and (max-width: 576px) {
   .image {
     height: 210px;
-  }
-  .product {
-    min-width: 100%;
   }
 }

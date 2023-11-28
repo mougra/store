@@ -1,28 +1,37 @@
-import React, { useState } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import styles from '../../styles/User.module.css'
-import { loginUser } from '../../store/user/user.slice'
+import { loginUser } from '../../store/user/user.actions'
 import { useAppDispatch } from '../../hooks/redux'
+import { AuthType } from '../../models/models'
 
-const UserSignupForm = ({ toggleCurrentFormType, closeForm }: any) => {
+interface UserSignupFormProps {
+  toggleCurrentFormType(type: AuthType): void
+  closeForm(): void
+}
+
+const UserSignupForm = ({
+  toggleCurrentFormType,
+  closeForm,
+}: UserSignupFormProps) => {
   const dispatch = useAppDispatch()
   const [values, setValues] = useState({
     email: '',
     password: '',
   })
 
-  const handleChange = ({ target: { value, name } }: any) => {
+  const handleChange = ({
+    target: { value, name },
+  }: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [name]: value })
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     const isNotEmpty = Object.values(values).every((val) => val)
 
     if (!isNotEmpty) return
-
     dispatch(loginUser(values))
-    closeForm()
   }
 
   return (

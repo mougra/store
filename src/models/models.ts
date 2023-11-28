@@ -15,6 +15,17 @@ export interface UserResponse {
   updatedAt: string
 }
 
+export interface UserCart {
+  id: number
+  email: string
+  password: string
+  name: string
+  role: string
+  avatar: string
+  creationAt: string
+  updatedAt: string
+}
+
 export interface ICategories {
   id: number
   name: string

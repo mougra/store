@@ -3,21 +3,28 @@ import UserSignupForm from './UserSignupForm'
 import UserLoginForm from './UserLoginForm'
 
 import styles from '../../styles/User.module.css'
-import { useAppSelector } from '../../hooks/redux'
-import { useActions } from '../../hooks/actions'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
+import { toggleForm, toggleFormType } from '../../store/user/user.slice'
 import { AuthType } from '../../models/models'
 
 const UserForm = () => {
-  const { showForm, formType } = useAppSelector((state) => state.user)
+  const dispatch = useAppDispatch()
 
-  const { toggleForm, toggleFormType } = useActions()
+  const { showForm, formType, loading, error } = useAppSelector(
+    (state) => state.user
+  )
 
-  const closeForm = () => toggleForm(false)
-  const toggleCurrentFormType = (type: AuthType) => toggleFormType(type)
+  const closeForm = () => dispatch(toggleForm(false))
+  const toggleCurrentFormType = (type: AuthType) =>
+    dispatch(toggleFormType(type))
 
   return showForm ? (
     <>
+      {loading && <div className={styles.loader}></div>}
       <div className={styles.overlay} onClick={closeForm} />
+      {error && (
+        <span className={styles.error}>Login or Password is incorrect</span>
+      )}
       {formType === 'signup' ? (
         <UserSignupForm
           toggleCurrentFormType={toggleCurrentFormType}

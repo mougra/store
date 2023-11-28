@@ -2,8 +2,8 @@ import React, { ChangeEvent, FormEvent, useState } from 'react'
 
 import styles from '../../styles/User.module.css'
 import { useAppDispatch } from '../../hooks/redux'
-import { createUser } from '../../store/user/user.slice'
-import { AuthType, createUserProps } from '../../models/models'
+import { createUser } from '../../store/user/user.actions'
+import { AuthType, RegisterUser } from '../../models/models'
 
 interface UserSignupFormProps {
   toggleCurrentFormType(type: AuthType): void
@@ -15,7 +15,12 @@ const UserSignupForm = ({
   closeForm,
 }: UserSignupFormProps) => {
   const dispatch = useAppDispatch()
-  const [values, setValues] = useState({} as createUserProps)
+  const [values, setValues] = useState<RegisterUser>({
+    name: '',
+    email: '',
+    password: '',
+    avatar: '',
+  })
 
   const handleChange = ({
     target: { value, name },

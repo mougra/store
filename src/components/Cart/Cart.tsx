@@ -1,21 +1,25 @@
 import styles from '../../styles/Cart.module.css'
 import { sumBy } from '../../utils/common'
-import { useAppSelector } from '../../hooks/redux'
+import { useAppDispatch, useAppSelector } from '../../hooks/redux'
 import { useActions } from '../../hooks/actions'
+import { UserCart } from '../../models/models'
+import { addItemToCart, removeItemFromCart } from '../../store/user/user.slice'
+
+export interface sumByProps {
+  quantity: number
+  price: number
+}
 
 const Cart = () => {
   const { cart } = useAppSelector(({ user }) => user)
+  const dispatch = useAppDispatch()
 
-  const { addItemToCart, removeItemFromCart } = useActions()
-
-  const changeQuantity = (item: any, quantity: any) => {
-    addItemToCart({ ...item, quantity })
+  const changeQuantity = (item: UserCart, quantity: number) => {
+    dispatch(addItemToCart({ ...item, quantity }))
   }
 
   const removeItem = (id: number) => {
-    console.log(typeof id)
-
-    removeItemFromCart(id)
+    dispatch(removeItemFromCart(id))
   }
 
   return (
@@ -27,7 +31,7 @@ const Cart = () => {
       ) : (
         <>
           <div className={styles.list}>
-            {cart.map((item: any) => {
+            {cart.map((item: UserCart) => {
               const { title, category, images, price, id, quantity } = item
 
               return (
@@ -92,7 +96,9 @@ const Cart = () => {
               TOTAL PRICE:{' '}
               <span>
                 {sumBy(
-                  cart.map(({ quantity, price }: any) => quantity * price)
+                  cart.map(
+                    ({ quantity, price }: sumByProps) => quantity * price
+                  )
                 )}
                 $
               </span>

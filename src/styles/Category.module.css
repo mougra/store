@@ -6,7 +6,6 @@
 
 .filters {
   display: flex;
-
   gap: 20px;
   width: 100%;
   margin-top: 24px;
@@ -44,6 +43,7 @@
   margin: 32px auto 0 auto;
   text-align: center;
 }
+
 .btn:disabled {
   background: var(--dark-sea);
 }
