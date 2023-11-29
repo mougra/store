@@ -34,7 +34,6 @@ const UserSignupForm = ({
     if (!values.name || !values.email || !values.password) return
 
     dispatch(createUser(values))
-    closeForm()
   }
 
   return (
@@ -87,7 +86,7 @@ const UserSignupForm = ({
         <div className={styles.group}>
           <input
             type='avatar'
-            placeholder='Your avatar (url)'
+            placeholder='Your avatar url (optional)'
             name='avatar'
             value={values.avatar}
             autoComplete='off'
