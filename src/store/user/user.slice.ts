@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthType, UserResponse } from '../../models/models'
+import { localStore } from '../localStore'
 
 interface UserState {
   currentUser: UserResponse | null
@@ -11,7 +12,8 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  currentUser: null,
+  currentUser: localStore.get('CURRENT_USER') ?? null,
+  // currentUser: null,
   cart: [],
   loading: false,
   error: '',
@@ -30,6 +32,7 @@ export const userSlice = createSlice({
       state.loading = false
       state.currentUser = action.payload
       state.error = ''
+      localStore.set('CURRENT_USER', action.payload)
     },
     addItemToCart(state, action: PayloadAction<any>) {
       let newCart = [...state.cart]
@@ -64,6 +67,8 @@ export const userSlice = createSlice({
     },
     logoutUser(state) {
       state.currentUser = null
+      localStore.set('tokensJWT', null)
+      localStore.set('CURRENT_USER', null)
     },
   },
 })

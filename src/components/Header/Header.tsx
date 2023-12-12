@@ -7,9 +7,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import LOGO from '../../images/logo.png'
 import AVATAR from '../../images/avatar.jpg'
 import { useAppDispatch, useAppSelector } from '../../hooks/redux'
-import { useActions } from '../../hooks/actions'
 import { useSearchProductQuery } from '../../store/products/products.api'
 import { logoutUser, toggleForm } from '../../store/user/user.slice'
+import { checkUser } from '../../store/user/user.actions'
+import { localStore } from '../../store/localStore'
 
 export const Header = () => {
   const navigate = useNavigate()
@@ -27,7 +28,7 @@ export const Header = () => {
 
   const handleClick = () => {
     if (!currentUser) dispatch(toggleForm(true))
-    else navigate('/profile')
+    else navigate(ROUTES.PROFILE)
   }
 
   const handleSearch = ({ target: { value } }: any) => {
@@ -37,8 +38,14 @@ export const Header = () => {
   function lohoutHandle() {
     dispatch(logoutUser())
     setUser({ name: 'Guest', avatar: AVATAR })
-    navigate('/store')
+    navigate(ROUTES.HOME)
   }
+
+  useEffect(() => {
+    if (localStore.get('tokensJWT')) {
+      dispatch(checkUser())
+    }
+  }, [])
 
   return (
     <div className={styles.header}>

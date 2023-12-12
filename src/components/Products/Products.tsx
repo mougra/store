@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 import styles from '../../styles/Products.module.css'
-import { useWindowSize } from '../../hooks/resize'
 
 interface ProductsProps {
   title: any

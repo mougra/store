@@ -101,3 +101,8 @@ export interface CategoryRes {
   creationAt: string
   updatedAt: string
 }
+
+export interface tokenJWT {
+  access_token: string
+  refresh_token: string
+}

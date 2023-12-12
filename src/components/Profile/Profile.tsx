@@ -4,9 +4,12 @@ import { useSelector } from 'react-redux'
 import styles from '../../styles/Profile.module.css'
 import { useAppDispatch } from '../../hooks/redux'
 import { updateUser } from '../../store/user/user.actions'
+import { useNavigate } from 'react-router-dom'
+import { ROUTES } from '../../utils/routes'
 
 const Profile = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { currentUser } = useSelector(({ user }) => user)
 
   const [values, setValues] = useState({
@@ -34,6 +37,7 @@ const Profile = () => {
     if (!isNotEmpty) return
 
     dispatch(updateUser(values))
+    navigate(ROUTES.HOME)
   }
 
   return (
