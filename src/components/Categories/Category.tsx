@@ -146,7 +146,7 @@ const Category = () => {
       <div className={styles.more}>
         <button
           className={styles.btn}
-          disabled={isEnd}
+          // disabled={isEnd}
           onClick={() =>
             setParams({ ...params, offset: params.offset + params.limit })
           }

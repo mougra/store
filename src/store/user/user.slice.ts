@@ -13,7 +13,6 @@ interface UserState {
 
 const initialState: UserState = {
   currentUser: localStore.get('CURRENT_USER') ?? null,
-  // currentUser: null,
   cart: [],
   loading: false,
   error: '',

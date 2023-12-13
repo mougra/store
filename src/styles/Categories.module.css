@@ -7,11 +7,12 @@
   margin-top: 24px;
   display: flex;
   column-gap: 20px;
+  flex-wrap: wrap;
 }
 
 .item {
-  /* width: calc(100% / 5); */
-  flex: 1;
+  width: calc(100% / 5);
+  /* flex: 1; */
   overflow: hidden;
   text-align: center;
 }

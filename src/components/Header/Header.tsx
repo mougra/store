@@ -15,7 +15,11 @@ import { localStore } from '../../store/localStore'
 export const Header = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const { currentUser, cart } = useAppSelector((state) => state.user)
+  const {
+    currentUser,
+    cart,
+    loading: isUserLoading,
+  } = useAppSelector((state) => state.user)
 
   const [user, setUser] = useState<any>({ name: 'Guest', avatar: AVATAR })
   const [searchValue, setSearchValue] = useState('')
@@ -55,7 +59,28 @@ export const Header = () => {
         </Link>
       </div>
       <div className={styles.info}>
-        <div className={styles.user} onClick={handleClick}>
+        {isUserLoading && <div className={styles.loader}></div>}
+
+        <div
+          className={!isUserLoading ? styles.user : styles.userhide}
+          onClick={handleClick}
+        >
+          <div
+            className={styles.avatar}
+            style={{ backgroundImage: `url(${user.avatar})` }}
+          />
+          <div className={styles.username}>{user.name}</div>
+        </div>
+        {currentUser && (
+          <button
+            className={!isUserLoading ? styles.more : styles.userhide}
+            onClick={lohoutHandle}
+          >
+            logout
+          </button>
+        )}
+
+        {/* <div className={styles.user} onClick={handleClick}>
           <div
             className={styles.avatar}
             style={{ backgroundImage: `url(${user.avatar})` }}
@@ -66,7 +91,7 @@ export const Header = () => {
           <button className={styles.more} onClick={lohoutHandle}>
             logout
           </button>
-        )}
+        )} */}
         <form className={styles.form}>
           <div className={styles.icon}>
             <svg className='icon'>
